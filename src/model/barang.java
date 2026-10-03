@@ -7,7 +7,7 @@ public class barang {
     private String nama;
     private int jumlahTersedia;
     
-    public Barang(String kode,String nama, int jumlahTersedia){
+    public barang(String kode,String nama, int jumlahTersedia){
         if (kode == null || kode.trim().isEmpty()) {
             throw new IllegalArgumentException("Kode barang wajib diisi.");
         }
@@ -27,17 +27,27 @@ public class barang {
     public String getNama(){
         return nama;
     }
-    public String getjumlahTersedia(){
+    public int getjumlahTersedia(){
         return jumlahTersedia;
     }
     
     public void pinjam(int jumlah) {
-        if (jumlah <= ) {
+        if (jumlah <= 0 ) {
             throw new IllegalArgumentException("Jumlah pinjam harus positif");
         }
         if (jumlah > jumlahTersedia ) {
-            throw new IllegalArgumentException("Jumlah pinjam harus positif");
+            throw new IllegalArgumentException("Barang tersedia tidak mencukupi");
         }
-        
+        jumlahTersedia -= jumlah;
     }
+    
+    public void kembalikan(int jumlah){
+        if (jumlah <= 0){
+            throw new IllegalArgumentException("Jumlah kembali harus positif");
+        }
+        if (jumlah > Integer.MAX_VALUE - jumlahTersedia) {
+              throw new IllegalArgumentException("Jumlah melebihi kapasitas int");
+        }
+        jumlahTersedia += jumlah;
+    }    
 }
